@@ -167,6 +167,7 @@
       document.getElementById("project").textContent = chosenProject;
       sessionStorage.setItem('photoProject', chosenProject);
       document.getElementById("generateButton").disabled = true;
+      document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
     }
 
     // On load, check if session already has a project
@@ -175,8 +176,6 @@
       if (stored) {
         document.getElementById("project").textContent = stored;
         document.getElementById("generateButton").disabled = true;
-      }
-      if (document.getElementById("generateButton").disabled) {
         document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
       }
     }
