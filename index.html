@@ -161,10 +161,7 @@
     ];
 
     function generateProject() {
-      if (sessionStorage.getItem('photoProject')) {
-        document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
-        return;
-      }
+      if (sessionStorage.getItem('photoProject')) return;
       const randomIndex = Math.floor(Math.random() * projects.length);
       const chosenProject = projects[randomIndex];
       document.getElementById("project").textContent = chosenProject;
@@ -178,6 +175,8 @@
       if (stored) {
         document.getElementById("project").textContent = stored;
         document.getElementById("generateButton").disabled = true;
+      }
+      if (document.getElementById("generateButton").disabled) {
         document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
       }
     }
