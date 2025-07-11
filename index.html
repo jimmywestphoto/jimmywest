@@ -57,121 +57,12 @@
   <div id="note"></div>
 
   <script>
-    const projects = [
-      "Photograph yellow subjects",
-      "Document hats in public places",
-      "Capture reflections in windows",
-      "Find scenes with symmetry",
-      "Photograph bicycles in your city",
-      "Focus on street art and graffiti",
-      "Capture only shadows and silhouettes",
-      "Photograph people reading",
-      "Look for the color red in unusual places",
-      "Capture the theme of loneliness",
-      "Photograph only objects with text",
-      "Find worn-down or decaying structures",
-      "Capture industrial scenes",
-      "Photograph daily routines of strangers",
-      "Capture pets in public spaces",
-      "Photograph church doors",
-      "Document hands — working, holding, gesturing",
-      "Find and capture moments of waiting",
-      "Photograph public benches",
-      "Capture signs of time passing",
-      "Document street musicians",
-      "Photograph matching colors (e.g. blue hat and blue car)",
-      "Look for interactions between humans and nature",
-      "Photograph shoes — on people, by themselves, hanging",
-      "Capture visual metaphors",
-      "Photograph just one street, in different weather",
-      "Look for repetition and patterns",
-      "Capture early morning light",
-      "Photograph people using phones",
-      "Capture scenes with intense contrast",
-      "Photograph streetlights at night",
-      "Look for the shape of circles",
-      "Capture kids playing",
-      "Photograph doors and entryways",
-      "Focus on textures — rust, stone, wood, etc.",
-      "Photograph markets and trade",
-      "Look for the theme of 'departure'",
-      "Photograph only square compositions",
-      "Capture hands making things",
-      "Photograph chairs in public settings",
-      "Find and document visual puns or irony",
-      "Capture shadows cast by trees",
-      "Photograph signage in different languages",
-      "Document your town as if you're a tourist",
-      "Photograph empty spaces",
-      "Focus on facial expressions of strangers",
-      "Capture movement and blur",
-      "Photograph pink clothing items",
-      "Document rooftops and antennas",
-      "Photograph fences and boundaries",
-      "Photograph objects that look like faces",
-      "Capture silhouettes during golden hour",
-      "Photograph vehicles with character",
-      "Focus on blue details in architecture",
-      "Photograph backs of people",
-      "Document staircases",
-      "Find examples of urban nature",
-      "Photograph people carrying umbrellas",
-      "Capture people at work",
-      "Photograph alleys and narrow passages",
-      "Capture scenes with strong leading lines",
-      "Document public transport moments",
-      "Photograph bridges in different light",
-      "Capture pets looking at the camera",
-      "Photograph people sitting alone",
-      "Look for mismatched socks",
-      "Photograph things placed where they don’t belong",
-      "Capture early morning commuters",
-      "Photograph visual clutter",
-      "Document neon lights at night",
-      "Photograph contrasts in architecture (old vs new)",
-      "Capture candid laughter",
-      "Document hands holding things",
-      "Photograph rainy scenes",
-      "Capture windows with curtains",
-      "Photograph motion blur of cars or bikes",
-      "Look for reflections in puddles",
-      "Document construction sites",
-      "Photograph children's toys left outside",
-      "Capture café culture",
-      "Photograph bicycles with baskets",
-      "Document local food vendors",
-      "Photograph unusual juxtapositions",
-      "Look for scenes framed through doorways",
-      "Capture cluttered desks or workspaces",
-      "Photograph patterns in tiled floors",
-      "Document hands exchanging money or goods",
-      "Capture mailbox designs",
-      "Photograph silhouettes of birds in trees",
-      "Focus on handwritten notes or signs",
-      "Capture light coming through windows",
-      "Photograph objects in motion",
-      "Look for examples of street fashion",
-      "Photograph quiet moments in noisy places",
-      "Capture isolated subjects in busy settings",
-      "Document signs of age in buildings",
-      "Photograph waiting rooms or queue lines",
-      "Capture pets interacting with people",
-      "Photograph public phone booths",
-      "Document windows at night from the outside"
-    ];
+    let projectList = [];
 
-    function generateProject() {
-      if (sessionStorage.getItem('photoProject')) return;
-      const randomIndex = Math.floor(Math.random() * projects.length);
-      const chosenProject = projects[randomIndex];
-      document.getElementById("project").textContent = chosenProject;
-      sessionStorage.setItem('photoProject', chosenProject);
-      document.getElementById("generateButton").disabled = true;
-      document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
-    }
+    async function loadProjects() {
+      const response = await fetch('projects.json');
+      projectList = await response.json();
 
-    // On load, check if session already has a project
-    window.onload = () => {
       const stored = sessionStorage.getItem('photoProject');
       if (stored) {
         document.getElementById("project").textContent = stored;
@@ -179,6 +70,18 @@
         document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
       }
     }
+
+    function generateProject() {
+      if (sessionStorage.getItem('photoProject')) return;
+      const randomIndex = Math.floor(Math.random() * projectList.length);
+      const chosenProject = projectList[randomIndex];
+      document.getElementById("project").textContent = chosenProject;
+      sessionStorage.setItem('photoProject', chosenProject);
+      document.getElementById("generateButton").disabled = true;
+      document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
+    }
+
+    window.onload = loadProjects;
   </script>
 </body>
 </html>
