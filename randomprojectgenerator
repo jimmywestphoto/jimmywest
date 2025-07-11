@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Photo Project Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      padding: 1rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    #project {
+      font-size: 1.5rem;
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+    #generateButton {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #generateButton:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #note {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #666;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲 Random Photo Project Generator</h1>
+  <div id="project">Click the button to get a project idea</div>
+  <button onclick="generateProject()" id="generateButton">Generate Project</button>
+  <div id="note"></div>
+
+  <script>
+    const projects = [
+      "Photograph yellow subjects",
+      "Document hats in public places",
+      "Capture reflections in windows",
+      "Find scenes with symmetry",
+      "Photograph bicycles in your city",
+      "Focus on street art and graffiti",
+      "Capture only shadows and silhouettes",
+      "Photograph people reading",
+      "Look for the color red in unusual places",
+      "Capture the theme of loneliness",
+      "Photograph only objects with text",
+      "Find worn-down or decaying structures",
+      "Capture industrial scenes",
+      "Photograph daily routines of strangers",
+      "Capture pets in public spaces",
+      "Photograph church doors",
+      "Document hands — working, holding, gesturing",
+      "Find and capture moments of waiting",
+      "Photograph public benches",
+      "Capture signs of time passing",
+      "Document street musicians",
+      "Photograph matching colors (e.g. blue hat and blue car)",
+      "Look for interactions between humans and nature",
+      "Photograph shoes — on people, by themselves, hanging",
+      "Capture visual metaphors",
+      "Photograph just one street, in different weather",
+      "Look for repetition and patterns",
+      "Capture early morning light",
+      "Photograph people using phones",
+      "Capture scenes with intense contrast",
+      "Photograph streetlights at night",
+      "Look for the shape of circles",
+      "Capture kids playing",
+      "Photograph doors and entryways",
+      "Focus on textures — rust, stone, wood, etc.",
+      "Photograph markets and trade",
+      "Look for the theme of 'departure'",
+      "Photograph only square compositions",
+      "Capture hands making things",
+      "Photograph chairs in public settings",
+      "Find and document visual puns or irony",
+      "Capture shadows cast by trees",
+      "Photograph signage in different languages",
+      "Document your town as if you're a tourist",
+      "Photograph empty spaces",
+      "Focus on facial expressions of strangers",
+      "Capture movement and blur",
+      "Photograph pink clothing items",
+      "Document rooftops and antennas",
+      "Photograph fences and boundaries",
+      "Photograph objects that look like faces",
+      "Capture silhouettes during golden hour",
+      "Photograph vehicles with character",
+      "Focus on blue details in architecture",
+      "Photograph backs of people",
+      "Document staircases",
+      "Find examples of urban nature",
+      "Photograph people carrying umbrellas",
+      "Capture people at work",
+      "Photograph alleys and narrow passages",
+      "Capture scenes with strong leading lines",
+      "Document public transport moments",
+      "Photograph bridges in different light",
+      "Capture pets looking at the camera",
+      "Photograph people sitting alone",
+      "Look for mismatched socks",
+      "Photograph things placed where they don’t belong",
+      "Capture early morning commuters",
+      "Photograph visual clutter",
+      "Document neon lights at night",
+      "Photograph contrasts in architecture (old vs new)",
+      "Capture candid laughter",
+      "Document hands holding things",
+      "Photograph rainy scenes",
+      "Capture windows with curtains",
+      "Photograph motion blur of cars or bikes",
+      "Look for reflections in puddles",
+      "Document construction sites",
+      "Photograph children's toys left outside",
+      "Capture café culture",
+      "Photograph bicycles with baskets",
+      "Document local food vendors",
+      "Photograph unusual juxtapositions",
+      "Look for scenes framed through doorways",
+      "Capture cluttered desks or workspaces",
+      "Photograph patterns in tiled floors",
+      "Document hands exchanging money or goods",
+      "Capture mailbox designs",
+      "Photograph silhouettes of birds in trees",
+      "Focus on handwritten notes or signs",
+      "Capture light coming through windows",
+      "Photograph objects in motion",
+      "Look for examples of street fashion",
+      "Photograph quiet moments in noisy places",
+      "Capture isolated subjects in busy settings",
+      "Document signs of age in buildings",
+      "Photograph waiting rooms or queue lines",
+      "Capture pets interacting with people",
+      "Photograph public phone booths",
+      "Document windows at night from the outside"
+    ];
+
+    function generateProject() {
+      if (sessionStorage.getItem('photoProject')) {
+        document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
+        return;
+      }
+      const randomIndex = Math.floor(Math.random() * projects.length);
+      const chosenProject = projects[randomIndex];
+      document.getElementById("project").textContent = chosenProject;
+      sessionStorage.setItem('photoProject', chosenProject);
+      document.getElementById("generateButton").disabled = true;
+    }
+
+    // On load, check if session already has a project
+    window.onload = () => {
+      const stored = sessionStorage.getItem('photoProject');
+      if (stored) {
+        document.getElementById("project").textContent = stored;
+        document.getElementById("generateButton").disabled = true;
+        document.getElementById("note").textContent = "Sorry, you can only click this button once per session.\nRemember, this is a challenge. Not from me — but to yourself.";
+      }
+    }
+  </script>
+</body>
+</html>
